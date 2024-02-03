@@ -9,7 +9,12 @@ const Home = () =>{
     const {isOpen} = useCoversation();
 
     return(
-        <div>
+        <div
+        className={clsx(
+            "lg:pl-80 h-full lg:block",
+            isOpen ? 'block' : 'hidden'
+        )}
+        >
             <EmptyState/>
         </div>
     )
