@@ -12,10 +12,10 @@ const getConversationById = async (
       return null;
     }
 
-    if(!conversationId){
-        console.log("no convid")
-        return null;
-    }
+    // if(!conversationId){
+    //     console.log("no convid")
+    //     return null;
+    // }
   
     const conversation = await prisma.conversation.findUnique({
       where: {
