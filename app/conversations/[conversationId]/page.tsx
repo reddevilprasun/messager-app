@@ -7,13 +7,13 @@ import Body from "./components/Body";
 import Form from "./components/Form";
 
 interface IParams {
-    coversationId: string;
+    conversationId: string;
 };
 
 const ConversationId = async ({ params }: { params: IParams }) => {
     const conversationId = params.conversationId; // Make sure this is a valid string
     const conversation = await getConversationById(conversationId);
-    const message = await getmessages(params.coversationId)
+    const message = await getmessages(conversationId)
     if (!conversation) {
         return (
             <div className="lg:pl-80 h-full">
