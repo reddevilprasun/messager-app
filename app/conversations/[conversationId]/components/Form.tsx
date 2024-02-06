@@ -10,6 +10,7 @@ import { CldUploadButton } from "next-cloudinary";
 const Form = () => {
     const { conversationId } = useCoversation();
     const {
+        reset,
         register,
         handleSubmit,
         setValue,
@@ -27,7 +28,8 @@ const Form = () => {
         axios.post('/api/messages', {
             ...data,
             conversationId
-        })
+        });
+        reset();
     }
     const handleUpload = (result: any) => {
         axios.post('/api/messages', {

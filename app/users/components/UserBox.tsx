@@ -1,16 +1,16 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import {  User } from "@prisma/client";
+import { User } from "@prisma/client";
 
 import Avatar from "@/app/components/Avatar";
-//import LoadingModal from "@/app/components/modals/LoadingModal";
+import LoadingModal from "@/app/components/LoadingModel";
 
 interface UserBoxProps {
   data: User
 }
 
-const UserBox: React.FC<UserBoxProps> = ({ 
+const UserBox: React.FC<UserBoxProps> = ({
   data
 }) => {
   const router = useRouter();
@@ -20,14 +20,17 @@ const UserBox: React.FC<UserBoxProps> = ({
     setIsLoading(true);
 
     axios.post('/api/conversations', { userId: data.id })
-    .then((data) => {
-      router.push(`/conversations/${data.data.id}`);
-    })
-    .finally(() => setIsLoading(false));
+      .then((data) => {
+        router.push(`/conversations/${data.data.id}`);
+      })
+      .finally(() => setIsLoading(false));
   }, [data, router]);
 
   return (
-    
+    <>
+      {isLoading && (
+        <LoadingModal />
+      )}
       <div
         onClick={handleClick}
         className="
@@ -55,8 +58,9 @@ const UserBox: React.FC<UserBoxProps> = ({
           </div>
         </div>
       </div>
-    
+    </>
+
   );
 }
- 
+
 export default UserBox;

@@ -6,8 +6,10 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { TiTick } from "react-icons/ti";
+import ImageModel from "./ImageModel";
 
 
 interface MessageBoxProps {
@@ -19,6 +21,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
     isLast
 }) => {
     const session = useSession();
+    const [imageModelOpen, setImageModelOpen] = useState(false)
     const isOwn = session?.data?.user?.email === data?.sender?.email;
     const seenList = (data.seen || [])
         .filter((user) => user.email !== data?.sender?.email)
@@ -54,8 +57,14 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                     </div>
                 </div>
                 <div className={messagestyle}>
+                    <ImageModel
+                        src={data.image}
+                        isOpen={imageModelOpen}
+                        onClose = {()=> setImageModelOpen(false)}
+                    />
                     {data.image ? (
                         <Image
+                            onClick={()=> setImageModelOpen(true)}
                             alt="Image"
                             height="288"
                             width="288"
